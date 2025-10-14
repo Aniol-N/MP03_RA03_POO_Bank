@@ -21,14 +21,20 @@ use ComBank\Support\Traits\AmountValidationTrait;
 use ComBank\Transactions\Contracts\BankTransactionInterface;
 use SebastianBergmann\Type\VoidType;
 
-class BankAccount
+class BankAccount implements BankAccountInterface
 {
-    // constructor
-    private function __construct(/*Type $var = null*/)
-    {
-        /*$this->var = $var;*/
-    }
+    use AmountValidationTrait;
+    private $balance;
+    private $status;
+    private $overdraft;
 
+    // constructor
+    private function __construct(float $newBalance = 0.0)
+    {
+        $this->balance = $newBalance;
+        $this->status = BankAccount::STATUS_OPEN;
+    }
+/*
     private function transaction(BankTransactionInterface $transaction) {}
     private function isOpen()
     {
@@ -48,4 +54,5 @@ class BankAccount
     {
         $this->$balance = $balance;
     }
+        */
 }
