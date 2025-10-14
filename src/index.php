@@ -8,6 +8,7 @@
  */
 
 use ComBank\Bank\BankAccount;
+use ComBank\Bank\Contracts\BankAccountInterface;
 use ComBank\OverdraftStrategy\SilverOverdraft;
 use ComBank\Transactions\DepositTransaction;
 use ComBank\Transactions\WithdrawTransaction;
@@ -27,10 +28,16 @@ try {
     pl('My balance : ' . $bankAccount1->getBalance());
 
     // close account
-    $this->status = BankAccountInterface::STATUS_CLOSED;
+    $bankAccount1->closeAccount();
     // reopen account
-    $this->status = BankAccountInterface::STATUS_OPEN;
-    
+    $bankAccount1->reopenAccount();
+
+    public function closeAccount():void {
+        $this->status=BankAccountInterface::STATUS_CLOSED;
+    }
+    public function reopenAccount():void {
+        $this->status=BankAccountInterface::STATUS_OPEN;
+    }
 
     // deposit +150 
     pl('Doing transaction deposit (+150) with current balance ' . $bankAccount1->getBalance());
