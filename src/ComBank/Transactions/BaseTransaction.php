@@ -1,4 +1,6 @@
-<?php namespace ComBank\Transactions;
+<?php
+
+namespace ComBank\Transactions;
 
 /**
  * Created by VS Code.
@@ -7,11 +9,13 @@
  * Time: 1:24 PM
  */
 
+use ComBank\Bank\BankAccount;
+use ComBank\Bank\Contracts\BankAccountInterface;
 use ComBank\Exceptions\InvalidArgsException;
 use ComBank\Exceptions\ZeroAmountException;
 use ComBank\Support\Traits\AmountValidationTrait;
 
-abstract class BaseTransaction
+abstract class BaseTransaction 
 {
-    
+
 }

@@ -29,15 +29,15 @@ try {
 
     // close account
     $bankAccount1->closeAccount();
-    pl('My account is now ' . $bankAccount1->closeAccount() . '.');
+    pl('My account is now closed' );
 
     // reopen account
     $bankAccount1->reopenAccount();
-    pl('My account is now ' . $bankAccount1->reopenAccount() . '.');
+    pl('My account is now open');
 
     // deposit +150 
     pl('Doing transaction deposit (+150) with current balance ' . $bankAccount1->getBalance());
-
+    $bankAccount1 -> transaction(new DepositTransaction(150.0));
     pl('My new balance after deposit (+150) : ' . $bankAccount1->getBalance());
 
     // withdrawal -25

@@ -32,19 +32,39 @@ class BankAccount implements BankAccountInterface
     public function __construct(float $newBalance = 0.0)
     {
         $this->balance = $newBalance;
-        $this->status = BankAccount::STATUS_OPEN;
-    }
-    
-    public function getBalance():float{
-        
-        return $this->balance;
+        $this->status = BankAccountInterface::STATUS_OPEN;
     }
 
-    public function closeAccount(){
+    public function transaction(BankTransactionInterface $bankTransaction)
+    {
+        if (!$this->isOpen()) {
+        }
+        try {
+            $newBalance = $bankTransaction->applyTransaction(bankAccount: $this);
+            $this->setBalance(newBalance: $newBalance);
+        } catch (InvalidOverdraftFundsException $e) {
+        }
+    }
+
+    public function isOpen(): bool
+    {
+        return true;
+    }
+
+    public function closeAccount()
+    {
         $this->status = BankAccountInterface::STATUS_CLOSED;
     }
-    public function reopenAccount(){
+    public function reopenAccount()
+    {
         $this->status = BankAccountInterface::STATUS_OPEN;
-        
+    }
+    public function getBalance(): float
+    {
+        return $this->balance;
+    }
+    public function setBalance(): float
+    {
+        return $this->balance;
     }
 }
