@@ -18,8 +18,12 @@ class DepositTransaction extends BaseTransaction implements BankTransactionInter
     {
         return $bankAccount->getBalance() + $this->amount;
     }
-    public function getTransaction(BankAccountInterface $bankAccount): float
+
+    public function getTransaction(BankAccountInterface $bankAccount): string
     {
-        return $bankAccount->getBalance() + $this->amount;
+        return "DEPOSIT_TRANSACTION" . PHP_EOL .
+            "Account balance: $" . number_format($bankAccount->getBalance(), 2) . PHP_EOL .
+            "Deposit amount: $" . number_format($this->amount, 2) . PHP_EOL .
+            "New balance: $" . number_format($bankAccount->getBalance() + $this->amount, 2);
     }
 }
