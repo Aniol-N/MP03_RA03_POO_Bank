@@ -19,10 +19,12 @@ use ComBank\Transactions\Contracts\BankTransactionInterface;
 
 abstract class BaseTransaction
 {
-    protected float $amount;
+    use AmountValidationTrait;
 
+    protected float $amount;
     public function __construct(float $amount)
     {
+        $this->validateAmount($amount);
         $this->amount = $amount;
     }
 

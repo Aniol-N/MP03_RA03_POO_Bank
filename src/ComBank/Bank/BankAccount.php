@@ -5,7 +5,6 @@ namespace ComBank\Bank;
 use ComBank\Exceptions\BankAccountException;
 use ComBank\Exceptions\FailedTransactionException;
 use ComBank\Exceptions\InvalidOverdraftFundsException;
-use ComBank\OverdraftStrategy\NoOverdraft;
 use ComBank\Bank\Contracts\BankAccountInterface;
 use ComBank\OverdraftStrategy\Contracts\OverdraftInterface;
 use ComBank\Support\Traits\AmountValidationTrait;
@@ -21,9 +20,14 @@ class BankAccount implements BankAccountInterface
 
     public function __construct(float $newBalance = 0.0)
     {
+        // Validar que el balance inicial no sea negativo
+        if ($newBalance < 0) {
+            throw new BankAccountException("El balance inicial no puede ser negativo.");
+        }
+        
         $this->balance = $newBalance;
         $this->status = BankAccountInterface::STATUS_OPEN;
-        # $this->overdraft = new NoOverdraft();
+        $this->overdraft = null;
     }
 
     public function transaction(BankTransactionInterface $bankTransaction): void
@@ -47,11 +51,17 @@ class BankAccount implements BankAccountInterface
 
     public function closeAccount(): void
     {
+        if (!$this->isOpen()) {
+            throw new BankAccountException("La cuenta ya está cerrada.");
+        }
         $this->status = BankAccountInterface::STATUS_CLOSED;
     }
 
     public function reopenAccount(): void
     {
+        if ($this->isOpen()) {
+            throw new BankAccountException("La cuenta ya está abierta.");
+        }
         $this->status = BankAccountInterface::STATUS_OPEN;
     }
 
