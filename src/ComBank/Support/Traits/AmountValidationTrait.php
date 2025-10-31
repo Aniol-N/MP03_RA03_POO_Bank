@@ -23,14 +23,10 @@ trait AmountValidationTrait
      */
     public function validateAmount(float $amount): void
     {
-        // Validar que no sea cero
-        if ($amount == 0) {
-            throw new ZeroAmountException("El monto no puede ser cero.");
-        }
-        
-        // Validar que no sea negativo
-        if ($amount < 0) {
-            throw new InvalidArgsException("El monto no puede ser negativo.");
+        // Validar que no sea cero o negativo
+        // Los tests esperan ZeroAmountException para ambos casos
+        if ($amount <= 0) {
+            throw new ZeroAmountException("El monto debe ser mayor que cero.");
         }
     }
 }

@@ -75,12 +75,12 @@ class BankAccount implements BankAccountInterface
         $this->balance = $balance;
     }
 
-    public function getOverdraft(): ?OverdraftInterface
+ public function getOverdraft(): ?OverdraftInterface
     {
         return $this->overdraft;
     }
 
-    public function applyOverdraft(OverdraftInterface $overdraft): void
+    public function applyOverdraft(?OverdraftInterface $overdraft): void
     {
         $this->overdraft = $overdraft;
     }

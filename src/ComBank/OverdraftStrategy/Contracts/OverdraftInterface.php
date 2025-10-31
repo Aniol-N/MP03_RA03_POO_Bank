@@ -9,7 +9,14 @@ namespace ComBank\OverdraftStrategy\Contracts;
  * Time: 7:44 PM
  */
 
-interface OverdraftInterface
+use ComBank\OverdraftStrategy\Contracts\OverdraftInterface;
+
+class SilverOverdraft implements OverdraftInterface
 {
-    public function isGrantOverdraftFunds(float $amount): bool;
+    private const OVERDRAFT_LIMIT = -100.0;
+
+    public function isGrantOverdraftFunds(float $amount): bool
+    {
+        return $amount >= self::OVERDRAFT_LIMIT;
+    }
 }
