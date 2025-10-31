@@ -1,17 +1,15 @@
-<?php namespace ComBank\OverdraftStrategy;
+<?php
 
-/**
- * Created by VS Code.
- * User: JPortugal
- * Date: 7/28/24
- * Time: 1:39 PM
- */
+namespace ComBank\OverdraftStrategy;
 
-/**
- * @description: Grant 100.00 overdraft funds.
- * */
-class SilverOverdraft 
+use ComBank\OverdraftStrategy\Contracts\OverdraftInterface;
+
+class SilverOverdraft implements OverdraftInterface
 {
+    private const OVERDRAFT_LIMIT = -100.0;
 
-    
+    public function isGrantOverdraftFunds(float $amount): bool
+    {
+        return $amount >= self::OVERDRAFT_LIMIT;
+    }
 }
