@@ -28,12 +28,18 @@ class WithdrawTransaction extends BaseTransaction implements BankTransactionInte
         return $newBalance;
     }
 
-    public function getTransactionInfo(BankAccountInterface $bankAccount): string
+    // Firma compatible con la interfaz
+    public function getTransactionInfo(?BankAccountInterface $account = null): string
     {
+        // Cuando no se proporciona account, devolver sólo el encabezado
+        if ($account === null) {
+            return "WITHDRAW_TRANSACTION";
+        }
+
         return "WITHDRAW_TRANSACTION" . PHP_EOL .
-            "Account balance: $" . number_format($bankAccount->getBalance(), 2) . PHP_EOL .
+            "Account balance: $" . number_format($account->getBalance(), 2) . PHP_EOL .
             "Withdraw amount: $" . number_format($this->amount, 2) . PHP_EOL .
-            "New balance: $" . number_format($bankAccount->getBalance() - $this->amount, 2);
+            "New balance: $" . number_format($account->getBalance() - $this->amount, 2);
     }
     
     // Alias para compatibilidad
